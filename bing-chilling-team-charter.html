@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Team Charter for Bing Chilling, CIS 5040 - Human-Centered Design.">
+  <title>Bing Chilling | Team Charter</title>
+
+  <!-- Outfit is the requested typeface. The fallbacks keep the page readable offline. -->
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap");
+
+    /* ---------- Easy-to-edit design settings ---------- */
+    :root {
+      --navy: #0b1f3a;
+      --navy-soft: #173557;
+      --cream: #fbf6e9;
+      --cream-deep: #f2e8d1;
+      --gold: #8a6500;
+      --gold-fill: #c99a22;
+      --gold-light: #e4bd58;
+      --ink: #132238;
+      --muted: #5b6572;
+      --white: #fffdf7;
+      --line: rgba(11, 31, 58, 0.14);
+      --shadow: 0 22px 60px rgba(11, 31, 58, 0.10);
+      --radius-large: 28px;
+      --radius-medium: 18px;
+      --page-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 108px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "Outfit", "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--gold-light);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 16px;
+      background: var(--white);
+      color: var(--navy);
+      border-radius: 999px;
+      font-weight: 700;
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(11, 31, 58, 0.96);
+      color: var(--white);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-wrap {
+      width: min(calc(100% - 40px), var(--page-width));
+      min-height: 76px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .brand {
+      margin-right: auto;
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      color: var(--gold-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 8px 11px;
+      color: rgba(255, 253, 247, 0.82);
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 160ms ease, color 160ms ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.10);
+      color: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 480px;
+      height: 480px;
+      top: -300px;
+      right: -100px;
+      border: 1px solid rgba(228, 189, 88, 0.35);
+      box-shadow: 0 0 0 70px rgba(228, 189, 88, 0.035),
+                  0 0 0 140px rgba(228, 189, 88, 0.025);
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      bottom: -160px;
+      left: 8%;
+      background: var(--gold-fill);
+      opacity: 0.12;
+      filter: blur(2px);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(calc(100% - 40px), var(--page-width));
+      min-height: 530px;
+      margin: 0 auto;
+      padding: 100px 0 88px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
+      align-items: end;
+      gap: 64px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-size: clamp(3.5rem, 9vw, 7.8rem);
+      line-height: 0.88;
+      letter-spacing: -0.065em;
+    }
+
+    .hero-subtitle {
+      margin: 0;
+      color: rgba(255, 253, 247, 0.72);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-meta {
+      padding: 26px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: var(--radius-medium);
+      backdrop-filter: blur(12px);
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .meta-value {
+      display: block;
+      font-size: 1.02rem;
+      font-weight: 600;
+    }
+
+    .meta-group + .meta-group {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    main {
+      width: min(calc(100% - 40px), var(--page-width));
+      margin: 0 auto;
+      padding: 96px 0 120px;
+    }
+
+    .section {
+      padding: 72px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      margin-bottom: 38px;
+    }
+
+    .section-number {
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      color: var(--navy);
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .content-offset {
+      margin-left: 192px;
+    }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .member-card,
+    .info-card {
+      background: var(--white);
+      border: 1px solid rgba(11, 31, 58, 0.09);
+      border-radius: var(--radius-medium);
+      box-shadow: 0 10px 32px rgba(11, 31, 58, 0.055);
+    }
+
+    .member-card {
+      min-height: 180px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .member-initial {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--cream-deep);
+      color: var(--navy);
+      border-radius: 50%;
+      font-weight: 800;
+    }
+
+    .member-card h3 {
+      margin: 26px 0 3px;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .member-card a {
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-decoration-color: rgba(184, 134, 11, 0.55);
+      text-underline-offset: 4px;
+    }
+
+    .purpose-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(32px, 6vw, 66px);
+      background: var(--navy);
+      color: var(--white);
+      border-radius: var(--radius-large);
+      box-shadow: var(--shadow);
+    }
+
+    .purpose-panel::after {
+      content: "“";
+      position: absolute;
+      top: -46px;
+      right: 24px;
+      color: rgba(228, 189, 88, 0.14);
+      font-size: 15rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .purpose-panel h3 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 16px;
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .purpose-panel p {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      margin-bottom: 0;
+      font-size: clamp(1.45rem, 3vw, 2.45rem);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+    }
+
+    .purpose-panel .success-copy {
+      margin-top: 44px;
+      padding-top: 34px;
+      color: rgba(255, 253, 247, 0.82);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 1.08rem;
+      font-weight: 400;
+      line-height: 1.65;
+      letter-spacing: 0;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .info-card {
+      padding: 30px;
+    }
+
+    .info-card h3 {
+      margin-bottom: 12px;
+      color: var(--gold);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .info-card p {
+      margin-bottom: 0;
+      color: var(--ink);
+      font-size: 1.08rem;
+    }
+
+    .success-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(11, 31, 58, 0.09);
+      border-radius: var(--radius-large);
+      box-shadow: var(--shadow);
+    }
+
+    .success-block {
+      padding: clamp(32px, 5vw, 58px);
+    }
+
+    .success-block:first-child {
+      background: var(--gold-fill);
+      color: var(--navy);
+    }
+
+    .success-block h3 {
+      margin-bottom: 18px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .success-block p {
+      margin-bottom: 0;
+      font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .success-block:last-child h3 {
+      color: var(--gold);
+    }
+
+    .site-footer {
+      padding: 42px 20px;
+      background: var(--navy);
+      color: rgba(255, 253, 247, 0.72);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .site-footer strong {
+      color: var(--white);
+    }
+
+    @media (max-width: 960px) {
+      .nav-wrap {
+        min-height: 68px;
+        padding: 10px 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: thin;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding: 86px 0 72px;
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .hero-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .meta-group + .meta-group {
+        margin: 0;
+        padding: 0 0 0 20px;
+        border-top: 0;
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .member-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card-grid.three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      body {
+        font-size: 16px;
+      }
+
+      .nav-wrap,
+      .hero-inner,
+      main {
+        width: min(calc(100% - 28px), var(--page-width));
+      }
+
+      .hero-inner {
+        padding-top: 70px;
+      }
+
+      h1 {
+        font-size: clamp(3.25rem, 18vw, 5rem);
+      }
+
+      main {
+        padding: 68px 0 84px;
+      }
+
+      .section {
+        padding: 54px 0;
+      }
+
+      .section-heading {
+        display: block;
+        margin-bottom: 26px;
+      }
+
+      .section-number {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .content-offset {
+        margin-left: 0;
+      }
+
+      .member-grid,
+      .card-grid,
+      .success-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .member-card {
+        min-height: 154px;
+      }
+
+      .purpose-panel {
+        border-radius: 22px;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-group + .meta-group {
+        margin-top: 18px;
+        padding: 18px 0 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        border-left: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media print {
+      .site-header,
+      .skip-link {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .hero {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .section,
+      .member-card,
+      .info-card,
+      .purpose-panel,
+      .success-banner {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#charter">Skip to charter content</a>
+
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="Team charter sections">
+      <a class="brand" href="#top">Bing <span class="brand-mark">Chilling</span></a>
+      <ul class="nav-links">
+        <li><a href="#identity">Identity</a></li>
+        <li><a href="#purpose">Purpose</a></li>
+        <li><a href="#communication">Communication</a></li>
+        <li><a href="#decisions">Decisions</a></li>
+        <li><a href="#agreements">Agreements</a></li>
+        <li><a href="#conflict">Conflict</a></li>
+        <li><a href="#success">Success</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="top" aria-labelledby="page-title">
+    <div class="hero-inner">
+      <div>
+        <p class="eyebrow">Team Charter</p>
+        <h1 id="page-title">Bing<br>Chilling</h1>
+        <p class="hero-subtitle">CIS 5040 - Human-Centered Design</p>
+      </div>
+
+      <aside class="hero-meta" aria-label="Charter details">
+        <div class="meta-group">
+          <span class="meta-label">Team</span>
+          <span class="meta-value">Bing Chilling</span>
+        </div>
+        <div class="meta-group">
+          <span class="meta-label">Date</span>
+          <time class="meta-value" datetime="2026-09-03">September 3, 2026</time>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main id="charter">
+    <section class="section" id="identity" aria-labelledby="identity-title">
+      <div class="section-heading">
+        <span class="section-number">01 / 07</span>
+        <h2 id="identity-title">Team Identity</h2>
+      </div>
+
+      <div class="content-offset">
+        <div class="member-grid" aria-label="Members and contacts">
+          <article class="member-card">
+            <span class="member-initial" aria-hidden="true">FZ</span>
+            <div>
+              <h3>Fei Zhao</h3>
+              <a href="tel:+16262837465" aria-label="Call Fei Zhao at 626 283 7465">6262837465</a>
+            </div>
+          </article>
+
+          <article class="member-card">
+            <span class="member-initial" aria-hidden="true">NL</span>
+            <div>
+              <h3>Nancy Lam</h3>
+              <a href="tel:+16266952226" aria-label="Call Nancy Lam at 626 695 2226">6266952226</a>
+            </div>
+          </article>
+
+          <article class="member-card">
+            <span class="member-initial" aria-hidden="true">NB</span>
+            <div>
+              <h3>Nomin Battugs</h3>
+              <a href="tel:+15108130880" aria-label="Call Nomin Battugs at 510 813 0880">5108130880</a>
+            </div>
+          </article>
+
+          <article class="member-card">
+            <span class="member-initial" aria-hidden="true">CY</span>
+            <div>
+              <h3>Christopher Yu</h3>
+              <a href="tel:+19094506338" aria-label="Call Christopher Yu at 909 450 6338">9094506338</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="purpose" aria-labelledby="purpose-title">
+      <div class="section-heading">
+        <span class="section-number">02 / 07</span>
+        <h2 id="purpose-title">Shared Purpose</h2>
+      </div>
+
+      <div class="content-offset">
+        <div class="purpose-panel">
+          <h3>Goal</h3>
+          <p>Create a project that works and that we can reflect on for personal growth in our portolio.</p>
+          <h3 style="margin-top: 44px;">What success looks like</h3>
+          <p class="success-copy">Output and good feed back knowing what we created works and does well.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="communication" aria-labelledby="communication-title">
+      <div class="section-heading">
+        <span class="section-number">03 / 07</span>
+        <h2 id="communication-title">Communication</h2>
+      </div>
+
+      <div class="content-offset card-grid three">
+        <article class="info-card">
+          <h3>Platform</h3>
+          <p>Discord</p>
+        </article>
+        <article class="info-card">
+          <h3>Response time</h3>
+          <p>weekends 4 hours, weekdays within the day</p>
+        </article>
+        <article class="info-card">
+          <h3>Meetings</h3>
+          <p>At least after classes and one or two times a week.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="decisions" aria-labelledby="decisions-title">
+      <div class="section-heading">
+        <span class="section-number">04 / 07</span>
+        <h2 id="decisions-title">Decision-Making</h2>
+      </div>
+
+      <div class="content-offset card-grid">
+        <article class="info-card">
+          <h3>How decisions are made</h3>
+          <p>team meetings, majority vote.</p>
+        </article>
+        <article class="info-card">
+          <h3>How disagreements are handled</h3>
+          <p>refocusing on goal instead of ego. Success of the project is more important than any personal feelings.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="agreements" aria-labelledby="agreements-title">
+      <div class="section-heading">
+        <span class="section-number">05 / 07</span>
+        <h2 id="agreements-title">Working Agreements</h2>
+      </div>
+
+      <div class="content-offset card-grid three">
+        <article class="info-card">
+          <h3>Participation</h3>
+          <p>Democracy. Divided work and set deadlines.</p>
+        </article>
+        <article class="info-card">
+          <h3>Accountability</h3>
+          <p>Meeting deadlines and having weekly check ins.</p>
+        </article>
+        <article class="info-card">
+          <h3>Deadlines</h3>
+          <p>in person meetings. Minimum online ones.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="conflict" aria-labelledby="conflict-title">
+      <div class="section-heading">
+        <span class="section-number">06 / 07</span>
+        <h2 id="conflict-title">Conflict Resolution</h2>
+      </div>
+
+      <div class="content-offset card-grid three">
+        <article class="info-card">
+          <h3>Unresponsive teammate</h3>
+          <p>We carry their weight and work until theyre responsive.</p>
+        </article>
+        <article class="info-card">
+          <h3>How concerns are raised</h3>
+          <p>buddy system. Ask one person else to help voice out any issues.</p>
+        </article>
+        <article class="info-card">
+          <h3>When to involve the instructor</h3>
+          <p>once we are out of resources and options.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="success" aria-labelledby="success-title">
+      <div class="section-heading">
+        <span class="section-number">07 / 07</span>
+        <h2 id="success-title">Success Metrics</h2>
+      </div>
+
+      <div class="content-offset success-banner">
+        <article class="success-block">
+          <h3>What will make us proud</h3>
+          <p>A functioning product and a beautiful from our Professor :)</p>
+        </article>
+        <article class="success-block">
+          <h3>Behaviors that define success</h3>
+          <p>Meeting deadlines, accountability, consistency and communication.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <strong>Bing Chilling</strong> &nbsp;·&nbsp; Team Charter &nbsp;·&nbsp; September 3, 2026
+  </footer>
+</body>
+</html>
