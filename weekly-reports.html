@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bing Chilling weekly project status reports">
+  <title>Weekly Reports | Bing Chilling</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --navy: #0b1f3a;
+      --navy-soft: #173557;
+      --cream: #fbf6e9;
+      --cream-deep: #f2e8d1;
+      --gold: #8a6500;
+      --gold-fill: #c99a22;
+      --gold-light: #e4bd58;
+      --ink: #132238;
+      --muted: #5b6572;
+      --white: #fffdf7;
+      --line: rgba(11,31,58,.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--gold-fill);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 12px;
+      top: -100px;
+      background: white;
+      padding: 10px;
+      z-index: 100;
+    }
+
+    .skip-link:focus { top: 10px; }
+
+    /* NAVIGATION */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(11,31,58,.97);
+      color: var(--white);
+    }
+
+    .nav-wrap {
+      max-width: 1180px;
+      margin: auto;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+      margin-right: auto;
+    }
+
+    .brand span { color: var(--gold-light); }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 9px 13px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 600;
+      color: rgba(255,253,247,.8);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(255,255,255,.12);
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      color: white;
+      padding: 95px 22px 105px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border: 1px solid rgba(228,189,88,.3);
+      border-radius: 50%;
+      right: -100px;
+      top: -250px;
+      box-shadow:
+        0 0 0 65px rgba(228,189,88,.035),
+        0 0 0 130px rgba(228,189,88,.025);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      line-height: .98;
+      letter-spacing: -.06em;
+      margin: 22px 0;
+    }
+
+    .hero p {
+      max-width: 680px;
+      color: rgba(255,255,255,.76);
+      font-size: 1.15rem;
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      max-width: 1180px;
+      margin: auto;
+      padding: 65px 22px 110px;
+    }
+
+    .report-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .report-toolbar h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 2rem;
+      letter-spacing: -.04em;
+    }
+
+    .week-select {
+      padding: 12px 18px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--navy);
+      font: inherit;
+      font-weight: 600;
+      min-width: 190px;
+    }
+
+    .report {
+      display: block;
+    }
+
+    /* REPORT HEADER */
+    .report-header {
+      background: var(--navy);
+      color: white;
+      padding: 38px;
+      border-radius: 24px;
+      margin-bottom: 22px;
+    }
+
+    .report-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .report-header h2 {
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      margin: 8px 0 16px;
+    }
+
+    .report-header p {
+      color: rgba(255,255,255,.75);
+      margin-bottom: 8px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      background: rgba(94,211,145,.13);
+      border: 1px solid rgba(94,211,145,.45);
+      border-radius: 999px;
+      color: #a5f1bf;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #7be4a2;
+    }
+
+    /* SECTIONS */
+    .report-section {
+      margin-top: 22px;
+      padding: 35px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 8px 30px rgba(11,31,58,.045);
+    }
+
+    .section-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .report-section h3 {
+      margin: 0 0 20px;
+      color: var(--navy);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: -.035em;
+      line-height: 1.2;
+    }
+
+    .report-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-section {
+      background: var(--cream-deep);
+    }
+
+    .goal-panel {
+      border-left: 4px solid var(--gold-fill);
+      padding-left: 22px;
+    }
+
+    /* TASK CARDS */
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 15px;
+    }
+
+    .task-card {
+      padding: 24px;
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .task-card h4 {
+      margin: 10px 0;
+      color: var(--navy);
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    .task-number {
+      color: var(--gold);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+    }
+
+    .owner {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 5px 12px;
+      background: var(--cream-deep);
+      border-radius: 999px;
+      color: var(--navy);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    /* INFORMATION CARDS */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 15px;
+    }
+
+    .info-box {
+      background: var(--cream);
+      padding: 23px;
+      border-radius: 16px;
+    }
+
+    .info-box span {
+      display: block;
+      color: var(--gold);
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+    }
+
+    .info-box strong {
+      color: var(--navy);
+      font-size: 1.15rem;
+    }
+
+    /* DESIGN PRINCIPLES */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .principle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: var(--cream);
+      border-radius: 12px;
+      font-size: .94rem;
+    }
+
+    .principle.checked {
+      background: #edf6ed;
+    }
+
+    .check-icon {
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #d8e2eb;
+      color: var(--navy);
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    .checked .check-icon {
+      background: #2f7850;
+      color: white;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      padding: 42px 20px;
+      background: var(--navy);
+      color: rgba(255,253,247,.72);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .site-footer strong { color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .nav-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+
+      .task-grid,
+      .info-grid,
+      .principles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero { padding: 65px 18px; }
+
+      main { padding: 45px 15px 75px; }
+
+      .report-section,
+      .report-header {
+        padding: 24px;
+      }
+
+      .report-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .week-select { width: 100%; }
+    }
+
+    @media print {
+      .site-header, .skip-link,
+      .report-toolbar { display: none; }
+
+      body { background: white; }
+
+      .report-section, .task-card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main">
+    Skip to report
+  </a>
+
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="Main navigation">
+      <a class="brand" href="index.html">
+        Bing <span>Chilling</span>
+      </a>
+
+      <ul class="nav-links">
+        <li>
+          <a href="index.html">Team Charter</a>
+        </li>
+        <li>
+          <a href="index.html#personas">Personas</a>
+        </li>
+        <li>
+          <a href="index.html#process-map">Process Map</a>
+        </li>
+        <li>
+          <a href="https://aeroppi.com/">Prototype</a>
+        </li>
+        <li>
+          <a href="weekly-reports.html"
+             class="active"
+             aria-current="page">
+            Weekly Reports
+          </a>
+        </li>
+        <li>
+          <a href="https://csula-my.sharepoint.com/:x:/g/personal/nbattug_calstatela_edu/cQq8HhTxw819QpHV8yAdbNH6EgUCAW3Nae9Rxia-sSaLLgpabw">
+            Change Log
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">
+        CIS 5040 / Project Documentation
+      </span>
+
+      <h1>Weekly<br>Status Reports.</h1>
+
+      <p>
+        Tracking our progress, accomplishments,
+        challenges, and next steps throughout
+        the Bing Chilling project.
+      </p>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- REPORT SELECTION -->
+    <div class="report-toolbar">
+      <h2>Project Reports</h2>
+
+      <label for="week-select">
+        Select reporting period
+        <select id="week-select" class="week-select">
+          <option value="week10">Week 10</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- WEEK 10 -->
+    <article class="report" id="week10">
+
+      <div class="report-header">
+        <div class="report-header-top">
+          <div>
+            <span class="eyebrow">
+              Weekly Status Report
+            </span>
+
+            <h2>Week 10</h2>
+
+            <p>Team: Bīngqílín</p>
+            <p>Report Author: Fei</p>
+            <p>Exported: November 2, 2026</p>
+          </div>
+
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            On Track
+          </div>
+        </div>
+      </div>
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="report-section highlight-section">
+        <span class="section-label">01 / Overview</span>
+        <h3>Executive Summary</h3>
+
+        <p>
+          We are on track and ahead of time.
+          We have a clickable working prototype.
+          Next week, we will fix remaining bugs
+          and prepare the final demonstration.
+        </p>
+      </section>
+
+      <!-- PROJECT GOAL -->
+      <section class="report-section">
+        <span class="section-label">02 / Direction</span>
+        <h3>Project Goal</h3>
+
+        <div class="goal-panel">
+          <p>
+            Our goal is to prepare a functional
+            prototype for presentation, then use
+            the feedback we receive to fix
+            remaining issues and improve the
+            website and app.
+          </p>
+        </div>
+      </section>
+
+      <!-- ACCOMPLISHMENTS -->
+      <section class="report-section">
+        <span class="section-label">03 / Progress</span>
+        <h3>Accomplishments This Week</h3>
+
+        <div class="task-grid">
+
+          <div class="task-card">
+            <span class="task-number">COMPLETED 01</span>
+            <h4>
+              Added a photo upload button to
+              the service ticket form
+            </h4>
+            <span class="owner">Nancy</span>
+          </div>
+
+          <div class="task-card">
+            <span class="task-number">COMPLETED 02</span>
+            <h4>
+              Updated the team site and
+              GitHub repository
+            </h4>
+            <span class="owner">Nomin</span>
+          </div>
+
+          <div class="task-card">
+            <span class="task-number">COMPLETED 03</span>
+            <h4>
+              Added the vendor list and
+              quote section
+            </h4>
+            <span class="owner">Chris</span>
+          </div>
+
+          <div class="task-card">
+            <span class="task-number">COMPLETED 04</span>
+            <h4>
+              Completed the prototype and
+              quote QA testing
+            </h4>
+            <span class="owner">Fei</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- NEXT WEEK -->
+      <section class="report-section">
+        <span class="section-label">04 / Looking Ahead</span>
+        <h3>Plan for Next Week</h3>
+
+        <div class="task-grid">
+
+          <div class="task-card">
+            <span class="task-number">UP NEXT 01</span>
+            <h4>
+              Prepare the final client demonstration
+              and confirm the photo upload workflow
+            </h4>
+            <span class="owner">Nancy</span>
+          </div>
+
+          <div class="task-card">
+            <span class="task-number">UP NEXT 02</span>
+            <h4>
+              Publish the final prototype and
+              update the team site and GitHub repository
+            </h4>
+            <span class="owner">Nomin</span>
+          </div>
+
+          <div class="task-card">
+            <span class="task-number">UP NEXT 03</span>
+            <h4>
+              Verify the vendor and quote workflow
+              in the administrator portal
+            </h4>
+            <span class="owner">Chris</span>
+          </div>
+
+          <div class="task-card">
+            <span class="task-number">UP NEXT 04</span>
+            <h4>
+              Complete final QA testing for the
+              administrator and client portals
+              and document any remaining bugs
+            </h4>
+            <span class="owner">Fei</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CLIENT AND RISKS -->
+      <section class="report-section">
+        <span class="section-label">05 / Communication</span>
+        <h3>Client Interactions & Risks</h3>
+
+        <div class="info-grid">
+
+          <div class="info-box">
+            <span>Client Contact</span>
+            <strong>Contact via messages</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Project Health</span>
+            <strong>On Track</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Identified Risks</span>
+            <strong>None</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Current Blockers</span>
+            <strong>None</strong>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- DESIGN PRINCIPLES -->
+      <section class="report-section">
+        <span class="section-label">06 / Design Review</span>
+        <h3>Design Principles Check</h3>
+
+        <p>
+          Principles marked with a check were
+          selected in the Week 10 report.
+        </p>
+
+        <div class="principles-grid">
+
+          <div class="principle">
+            <span class="check-icon">–</span>
+            Design meaningful systems
+          </div>
+
+          <div class="principle checked">
+            <span class="check-icon">✓</span>
+            User-first design
+          </div>
+
+          <div class="principle">
+            <span class="check-icon">–</span>
+            Remember the why
+          </div>
+
+          <div class="principle checked">
+            <span class="check-icon">✓</span>
+            Everything on the screen is intentional
+          </div>
+
+          <div class="principle">
+            <span class="check-icon">–</span>
+            Accessibility as a foundation
+          </div>
+
+          <div class="principle checked">
+            <span class="check-icon">✓</span>
+            Look, presentation and content
+          </div>
+
+          <div class="principle checked">
+            <span class="check-icon">✓</span>
+            Consistency
+          </div>
+
+          <div class="principle checked">
+            <span class="check-icon">✓</span>
+            Error prevention and recovery
+          </div>
+
+          <div class="principle checked">
+            <span class="check-icon">✓</span>
+            Creative exploration
+          </div>
+
+        </div>
+      </section>
+
+      <!-- REFLECTION -->
+      <section class="report-section highlight-section">
+        <span class="section-label">07 / Retrospective</span>
+        <h3>Team Reflection</h3>
+
+        <p>
+          We learned how the client's feedback
+          can clarify the most important deliverables
+          and help us prioritize the next steps.
+          The feedback helped us understand which
+          functions are useful and which areas
+          still need improvement.
+        </p>
+
+        <p>
+          In the future, we would test the
+          administrator and client portal earlier,
+          assign each testing task more clearly,
+          and document issues as soon as we find them.
+        </p>
+      </section>
+
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <strong>Bing Chilling</strong>
+    &nbsp;·&nbsp;
+    Human-Centered Design
+    &nbsp;·&nbsp;
+    2026
+  </footer>
+
+</body>
+</html>
